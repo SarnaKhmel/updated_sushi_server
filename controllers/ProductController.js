@@ -117,6 +117,7 @@ export const update = async (req, res) => {
         user: req.userId,
       }
     );
+    console.log(res);
     res.json(doc);
   } catch (error) {
     res.status(500).json({
@@ -124,3 +125,32 @@ export const update = async (req, res) => {
     });
   }
 };
+
+// export const update = async (req, res) => {
+//   try {
+//     const ProductId = req.params.id;
+//     const doc = await ProductModel.findOneAndUpdate(
+//       {
+//         _id: ProductId,
+//       },
+//       {
+//         name: req.body.name,
+//         text: req.body.text,
+//         weight: req.body.weight,
+//         type: req.body.type,
+//         sale: req.body.sale,
+//         price: req.body.price,
+//         week_sale: req.body.week_sale,
+//         old_price: req.body.old_price,
+//         imageUrl: req.body.imageUrl,
+//         user: req.userId,
+//       },
+//       { new: true } // Повертає оновлену версію об'єкта
+//     );
+//     res.json(doc);
+//   } catch (error) {
+//     res.status(500).json({
+//       message: "Cant update Product",
+//     });
+//   }
+// };
