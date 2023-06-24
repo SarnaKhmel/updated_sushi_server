@@ -3,12 +3,15 @@ import multer from "multer";
 import mongoose from "mongoose";
 import cors from "cors";
 
+import bcrypt from "bcrypt";
+
 import {
   registerValidation,
   loginValidation,
   postCreateValidation,
   productCreateValidation,
-  ordersCreateValidation,
+  orderCreateValidation,
+  passwordChangeValidation,
 } from "./validations.js";
 import { checkAuth, handleValidationErrors } from "./utils/index.js";
 import {
@@ -84,31 +87,47 @@ app.post(
 );
 app.get("/auth/me", checkAuth, UserController.getMe);
 
+app.patch(
+  "/auth/password",
+  checkAuth,
+  passwordChangeValidation,
+  UserController.changePassword
+);
+
 //Order
 
-// app.post("/upload/order", checkAuth, uploadPost.single("image"), (req, res) => {
-//   res.json({
-//     url: `/uploads/order/${req.file.originalname}`,
-//   });
-// });
+app.get("/order", checkAuth, OrderController.getAll);
+app.get("/order/:id", checkAuth, OrderController.getOne);
 
-app.get("/order", OrderController.getAll);
-app.get("/order/:id", OrderController.getOne);
 app.post(
   "/order",
   checkAuth,
-  ordersCreateValidation,
+  orderCreateValidation,
   handleValidationErrors,
   OrderController.create
 );
+
 app.delete("/order/:id", checkAuth, OrderController.remove);
+
+app.get("/order/:id", (req, res) => {
+  res.send("Hello, world!");
+});
+
 app.patch(
   "/order/:id",
-  checkAuth,
-  ordersCreateValidation,
+
+  orderCreateValidation,
   handleValidationErrors,
   OrderController.update
 );
+
+// app.patch(
+//   "some/:id",
+//   checkAuth,
+//   orderCreateValidation,
+//   handleValidationErrors,
+//   OrderController.update
+// );
 
 //Product
 app.post(

@@ -30,15 +30,30 @@ export const productCreateValidation = [
   body("imageUrl", "bad image url ").optional().isString(),
 ];
 
-export const ordersCreateValidation = [
-  body("userName", "bad userName").isLength({ min: 3 }).isString(),
-  body("userPhone", "bad userPhone").isLength({ min: 3 }).isString(),
-  body("userEmail", "bad userEmail").isLength({ min: 3 }).isString(),
-  body("userAddress", "bad userAddress").isString(),
+export const orderCreateValidation = [
+  body("name", "Ім'я повинно містити принаймні 3 символи")
+    .isLength({ min: 3 })
+    .isString(),
+  body("phone", "Некоректний номер телефону").isMobilePhone(),
+  body("email", "Некоректна електронна адреса").isEmail(),
+  body("city", "Місто повинно бути рядком").isString(),
+  body("street", "Вулиця повинна бути рядком").isString(),
+  body("house", "Будинок повинен бути рядком").isString(),
+  body("floor", "Поверх повинен бути рядком").optional().isString(),
+  body("apartment", "Квартира повинна бути рядком").optional().isString(),
+  body("entrance", "Під'їзд повинен бути рядком").optional().isString(),
+  body("deliveryType", "Тип доставки повинен бути рядком").isString(),
+  body("paymentMethod", "Форма оплати повинна бути рядком").isString(),
+  body("changeAmount", "Сума для решти повинна бути рядком")
+    .optional()
+    .isString(),
+  body("comment", "Коментар повинен бути рядком").optional().isString(),
+  body("orderList", "Помилка списку замовлень").isObject(),
+  body("status", "Помилка статусу замовленя").isString(),
+];
 
-  body("orderPrice", "bad orderPrice").isString(),
-  body("orderWeight", "bad orderWeight").isString(),
-  body("orderList", "bad orderList").isString(),
-  body("orderPromo", "bad orderPromo").optional().isString(),
-  body("orderStatus", "bad orderStatus").optional().isString(),
+export const passwordChangeValidation = [
+  body("oldPassword", "bad pass old").isLength({ min: 6 }),
+  body("newPassword", "bad pass new").isLength({ min: 6 }),
+  body("id", "bad pass new").isLength({ min: 6 }),
 ];

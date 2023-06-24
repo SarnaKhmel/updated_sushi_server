@@ -12,7 +12,7 @@ const ProductSchema = new mongoose.Schema(
       type: String,
     },
     sale: {
-      type: String,
+      type: Boolean,
     },
     price: {
       type: String,
@@ -21,7 +21,7 @@ const ProductSchema = new mongoose.Schema(
       type: String,
     },
     week_sale: {
-      type: String,
+      type: Boolean,
     },
     old_price: {
       type: String,

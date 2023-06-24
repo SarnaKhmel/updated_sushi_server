@@ -2,53 +2,93 @@ import mongoose from "mongoose";
 
 const OrderSchema = new mongoose.Schema(
   {
-    userName: {
+    name: {
       type: String,
       required: true,
     },
-    userPhone: {
+    phone: {
       type: String,
       required: true,
     },
-    userEmail: {
+    email: {
       type: String,
       required: false,
     },
-    userAddress: {
+    city: {
       type: String,
       required: true,
     },
-    orderPrice: {
+    street: {
       type: String,
       required: true,
     },
-    orderWeight: {
+    house: {
       type: String,
       required: true,
+    },
+    floor: {
+      type: String,
+      required: false,
+    },
+    apartment: {
+      type: String,
+      required: false,
+    },
+    entrance: {
+      type: String,
+      required: false,
+    },
+    deliveryType: {
+      type: String,
+      required: true,
+    },
+    paymentMethod: {
+      type: String,
+      required: true,
+    },
+    changeAmount: {
+      type: String,
+      required: false,
+    },
+    comment: {
+      type: String,
+      required: false,
     },
     orderList: {
-      type: String,
-      required: false,
-    },
-    orderPromo: {
-      type: String,
-      required: false,
-    },
-    orderStatus: {
-      type: String,
-      default: false,
-    },
-    viewsCount: {
-      type: Number,
+      type: Object,
       required: true,
-      default: 0,
     },
-    imageUrl: String,
+    status: {
+      type: String,
+      required: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: false,
+    },
+    orderNumber: {
+      type: Number,
+    },
   },
-
   {
     timestamps: true,
   }
 );
+OrderSchema.pre("save", async function (next) {
+  if (this.isNew && !this.orderNumber) {
+    const lastOrder = await this.constructor.findOne(
+      {},
+      {},
+      { sort: { orderNumber: -1 } }
+    );
+    if (lastOrder && lastOrder.orderNumber) {
+      this.orderNumber = lastOrder.orderNumber + 1;
+    } else {
+      this.orderNumber = 1;
+    }
+  }
+  next();
+});
 
 export default mongoose.model("Order", OrderSchema);

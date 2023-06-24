@@ -93,3 +93,18 @@ export const getMe = async (req, res) => {
     });
   }
 };
+
+export const changePassword = async (req, res) => {
+  try {
+    const userId = req.userId; // Assuming the user ID is stored in the `userId` property of the request
+    const newPassword = req.body.newPassword;
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await User.findByIdAndUpdate(userId, { passwordHash: hashedPassword });
+
+    res.json({ message: "Password changed successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to change password" });
+  }
+};

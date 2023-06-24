@@ -1,16 +1,28 @@
 import { json } from "express";
 import OrderModel from "../models/Order.js";
 
+// export const getAll = async (req, res) => {
+//   try {
+//     const Orders = await OrderModel.find().populate("user").exec();
+//     res.json(Orders);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500),
+//       json({
+//         message: "Cant find Orders",
+//       });
+//   }
+// };
+
 export const getAll = async (req, res) => {
   try {
-    const Orders = await OrderModel.find().populate("user").exec();
-    res.json(Orders);
+    const orders = await OrderModel.find().populate("user").exec();
+    res.json(orders);
   } catch (error) {
     console.log(error);
-    res.status(500),
-      json({
-        message: "Cant find Orders",
-      });
+    res.status(500).json({
+      message: "Cannot find orders",
+    });
   }
 };
 
@@ -21,11 +33,7 @@ export const getOne = async (req, res) => {
       {
         _id: OrderId,
       },
-      {
-        $inc: {
-          viewsCount: 1,
-        },
-      },
+
       {
         returnDocument: "after",
       }
@@ -48,28 +56,51 @@ export const getOne = async (req, res) => {
 
 export const create = async (req, res) => {
   try {
-    const doc = new OrderModel({
-      userName: req.body.userName,
-      userPhone: req.body.userPhone,
-      userEmail: req.body.userEmail,
-      userAddress: req.body.userAddress,
+    const {
+      name,
+      phone,
+      email,
+      city,
+      street,
+      house,
+      floor,
+      apartment,
+      entrance,
+      deliveryType,
+      paymentMethod,
+      changeAmount,
+      comment,
+      orderList,
+      status,
+      orderNumber,
+    } = req.body;
 
-      orderPrice: req.body.orderPrice,
-      orderWeight: req.body.orderWeight,
-      orderList: req.body.orderList,
-      orderPromo: req.body.orderPromo,
-      orderPromo: req.body.orderPromo,
-      orderStatus: req.body.orderStatus,
+    const doc = new OrderModel({
+      name,
+      phone,
+      email,
+      city,
+      street,
+      house,
+      floor,
+      apartment,
+      entrance,
+      deliveryType,
+      paymentMethod,
+      changeAmount,
+      comment,
+      orderList,
+      status,
+      orderNumber,
     });
 
-    const Order = await doc.save();
-    res.json(Order);
+    const order = await doc.save();
+    res.json(order);
   } catch (error) {
     console.log(error);
-    res.status(500),
-      json({
-        message: "Cant create Order",
-      });
+    res.status(500).json({
+      message: "Can't create Order",
+    });
   }
 };
 
@@ -98,30 +129,37 @@ export const remove = async (req, res) => {
 };
 
 export const update = async (req, res) => {
+  console.log(req);
   try {
-    const OrderId = req.params.id;
-    const doc = await OrderModel.updateOne(
-      {
-        _id: OrderId,
-      },
-      {
-        userName: req.body.userName,
-        userPhone: req.body.userPhone,
-        userEmail: req.body.userEmail,
-        userAddress: req.body.userAddress,
-
-        orderPrice: req.body.orderPrice,
-        orderWeight: req.body.orderWeight,
-        orderList: req.body.orderList,
-        orderPromo: req.body.orderPromo,
-        orderPromo: req.body.orderPromo,
-        orderStatus: req.body.orderStatus,
-      }
-    );
+    const orderId = req.params.id;
+    const updatedFields = {
+      orderNumber: req.body.orderNumber,
+      name: req.body.name,
+      phone: req.body.phone,
+      email: req.body.email,
+      city: req.body.city,
+      street: req.body.street,
+      house: req.body.house,
+      floor: req.body.floor,
+      apartment: req.body.apartment,
+      entrance: req.body.entrance,
+      deliveryType: req.body.deliveryType,
+      paymentMethod: req.body.paymentMethod,
+      changeAmount: req.body.changeAmount,
+      comment: req.body.comment,
+      orderList: req.body.orderList,
+      status: req.body.status,
+    };
+    const doc = await OrderModel.findByIdAndUpdate(orderId, updatedFields, {
+      new: true,
+    });
+    if (!doc) {
+      return res.status(404).json({ message: "Order not found" });
+    }
     res.json(doc);
   } catch (error) {
     res.status(500).json({
-      message: "Cant update Order",
+      message: "Cannot update Order",
     });
   }
 };
