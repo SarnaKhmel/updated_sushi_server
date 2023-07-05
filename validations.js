@@ -39,10 +39,6 @@ export const orderCreateValidation = [
   body("city", "Місто повинно бути рядком").isString(),
   body("street", "Вулиця повинна бути рядком").isString(),
   body("house", "Будинок повинен бути рядком").isString(),
-  body("floor", "Поверх повинен бути рядком").optional().isString(),
-  body("apartment", "Квартира повинна бути рядком").optional().isString(),
-  body("entrance", "Під'їзд повинен бути рядком").optional().isString(),
-  body("deliveryType", "Тип доставки повинен бути рядком").isString(),
   body("paymentMethod", "Форма оплати повинна бути рядком").isString(),
   body("changeAmount", "Сума для решти повинна бути рядком")
     .optional()

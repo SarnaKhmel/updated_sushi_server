@@ -26,22 +26,6 @@ const OrderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    floor: {
-      type: String,
-      required: false,
-    },
-    apartment: {
-      type: String,
-      required: false,
-    },
-    entrance: {
-      type: String,
-      required: false,
-    },
-    deliveryType: {
-      type: String,
-      required: true,
-    },
     paymentMethod: {
       type: String,
       required: true,
