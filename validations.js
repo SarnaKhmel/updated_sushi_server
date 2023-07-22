@@ -25,6 +25,7 @@ export const productCreateValidation = [
   body("sale", "bad sale").isBoolean(),
   body("price", "bad price").isFloat(),
   body("type", "bad type").isString(),
+  body("sub_type", "bad subType").isString(),
   body("week_sale", "bad week_sale").optional().isBoolean(),
   body("old_price", "bad old_price").optional().isString(),
   body("imageUrl", "bad image url ").optional().isString(),
@@ -35,7 +36,7 @@ export const orderCreateValidation = [
     .isLength({ min: 3 })
     .isString(),
   body("phone", "Некоректний номер телефону").isMobilePhone(),
-  body("email", "Некоректна електронна адреса").isEmail(),
+  body("email", "Некоректна електронна адреса").optional().isEmail(),
   body("city", "Місто повинно бути рядком").isString(),
   body("street", "Вулиця повинна бути рядком").isString(),
   body("house", "Будинок повинен бути рядком").isString(),
