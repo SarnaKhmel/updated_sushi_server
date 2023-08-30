@@ -36,7 +36,7 @@ export const orderCreateValidation = [
     .isLength({ min: 3 })
     .isString(),
   body("phone", "Некоректний номер телефону").isMobilePhone(),
-  body("email", "Некоректна електронна адреса").optional().isEmail(),
+  body("email", "Некоректна електронна адреса").optional().isString(),
   body("city", "Місто повинно бути рядком").isString(),
   body("street", "Вулиця повинна бути рядком").isString(),
   body("house", "Будинок повинен бути рядком").isString(),
