@@ -20,12 +20,12 @@ export const postCreateValidation = [
 
 export const productCreateValidation = [
   body("name", "bad name").isLength({ min: 3 }).isString(),
-  body("text", "bad text").isLength({ min: 3 }).isString(),
+  body("text", "bad text").optional().isString(),
   body("weight", "bad weight").isFloat(),
   body("sale", "bad sale").isBoolean(),
   body("price", "bad price").isFloat(),
   body("type", "bad type").isString(),
-  body("sub_type", "bad subType").isString(),
+  body("sub_type", "bad sub_type").isString(),
   body("week_sale", "bad week_sale").optional().isBoolean(),
   body("old_price", "bad old_price").optional().isString(),
   body("imageUrl", "bad image url ").optional().isString(),
@@ -45,6 +45,7 @@ export const orderCreateValidation = [
     .optional()
     .isString(),
   body("comment", "Коментар повинен бути рядком").optional().isString(),
+  body("device", "Помилка к-ті приборів").optional().isString(),
   body("orderList", "Помилка списку замовлень").isObject(),
   body("status", "Помилка статусу замовленя").isString(),
 ];
