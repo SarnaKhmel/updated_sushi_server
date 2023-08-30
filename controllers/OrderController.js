@@ -68,6 +68,7 @@ export const create = async (req, res) => {
       comment,
       orderList,
       status,
+      device,
       orderNumber,
     } = req.body;
 
@@ -83,6 +84,7 @@ export const create = async (req, res) => {
       comment,
       orderList,
       status,
+      device,
       orderNumber,
     });
 
@@ -135,6 +137,7 @@ export const update = async (req, res) => {
       paymentMethod: req.body.paymentMethod,
       changeAmount: req.body.changeAmount,
       comment: req.body.comment,
+      divice: req.body.device,
       orderList: req.body.orderList,
       status: req.body.status,
     };

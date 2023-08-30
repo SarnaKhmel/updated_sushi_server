@@ -22,6 +22,7 @@ const ProductSchema = new mongoose.Schema(
     },
     sub_type: {
       type: String,
+      required: true,
     },
     week_sale: {
       type: Boolean,
