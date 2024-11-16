@@ -101,7 +101,7 @@ app.get("/order/:id", checkAuth, OrderController.getOne);
 
 app.post(
   "/order",
-  orderCreateValidation,
+ // orderCreateValidation,
   handleValidationErrors,
   OrderController.create
 );
