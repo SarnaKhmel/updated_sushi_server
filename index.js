@@ -37,6 +37,17 @@ mongoose
   .catch((err) => {
     console.log("Error connecting DB((( 😥 ", err);
   });
+// qeqelock123
+// mongoose
+//     .connect(
+//         "mongodb://localhost:27018/your-database-name"
+//     )
+//     .then(() => {
+//       console.log("Успішне підключення до бази даних! 👍");
+//     })
+//     .catch((err) => {
+//       console.log("Помилка підключення до бази даних((( 😥 ", err);
+//     });
 
 const app = express();
 const port = process.env.PORT || 1234;
@@ -262,5 +273,5 @@ app.listen(port, (err) => {
   if (err) {
     return console.log(err);
   }
-  console.log(`Server OK! Nice! ${port}`);
+  console.log(`Server OK! Port: ${port}`);
 });
