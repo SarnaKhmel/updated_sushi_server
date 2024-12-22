@@ -48,6 +48,7 @@ export const orderCreateValidation = [
   body("device", "Помилка к-ті приборів").optional().isString(),
   body("orderList", "Помилка списку замовлень").isObject(),
   body("status", "Помилка статусу замовленя").isString(),
+  body("fixators", "Помилка кількості фіксаторів у замовленні").isString(),
 ];
 
 export const passwordChangeValidation = [

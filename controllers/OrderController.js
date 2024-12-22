@@ -69,7 +69,8 @@ export const create = async (req, res) => {
       orderList,
       status,
       device,
-      orderNumber,
+      fixators,
+      orderNumber
     } = req.body;
 
     const doc = new OrderModel({
@@ -85,6 +86,7 @@ export const create = async (req, res) => {
       orderList,
       status,
       device,
+      fixators,
       orderNumber,
     });
 
@@ -138,6 +140,7 @@ export const update = async (req, res) => {
       changeAmount: req.body.changeAmount,
       comment: req.body.comment,
       divice: req.body.device,
+      fixators: req.body.fixators,
       orderList: req.body.orderList,
       status: req.body.status,
     };
